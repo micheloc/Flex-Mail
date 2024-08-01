@@ -12,15 +12,20 @@ def register_blueprints(app: Flask) -> None:
 
 		:param app: A instância do aplicativo Flask onde os blueprints serão registrados.
 		"""
-		
 		# Define the project root directory
 		# Define o diretório raiz do projeto
-		project_root = os.path.abspath(os.path.dirname(__file__) + '../../../')
+		
+		#project_root = os.path.abspath(os.path.dirname(__file__) + '../../../')
+
+		project_root = os.path.abspath(os.path.dirname(__file__) + '../../')
+
+
 		# Define the full path to the 'Controllers' directory
 		# Define o caminho completo para o diretório 'Controllers'
+		# controllers_dir = os.path.join(project_root, 'Flex Mail', 'Controllers')
 		
-		controllers_dir = os.path.join(project_root, 'Flex Mail', 'Controllers')
-		
+		controllers_dir = os.path.join(project_root, 'Controllers')
+
 		# Check if the 'Controllers' directory exists
 		# Verifica se o diretório 'Controllers' existe
 		if os.path.isdir(controllers_dir):
