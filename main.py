@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, make_response
+from flask import Flask, jsonify, make_response, redirect
 from flask_cors import CORS
 from flask_swagger_ui import get_swaggerui_blueprint
 
@@ -8,7 +8,7 @@ app = Flask(__name__)
 CORS(app)
 
 ## Configuração da apresentação do swagger ##
-SWAGGER_URL = ''
+SWAGGER_URL = '/swagger'
 API_URL = '/static/swagger.json'
 SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
 		SWAGGER_URL,
@@ -21,6 +21,11 @@ SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
 app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 register_blueprints(app)
 
+
+# Rota para redirecionar a URL raiz para o Swagger UI
+@app.route('/')
+def index():
+    return redirect(SWAGGER_URL, code=302)
 
 @app.errorhandler(400)
 def handle_400_error(_error):
