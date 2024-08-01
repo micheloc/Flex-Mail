@@ -1,0 +1,133 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de Envio de Email",
+    "description": "API para envio de e-mails",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/send_email": {
+      "post": {
+        "summary": "Encaminha um e-mail a partir do remetente ao destinatário",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmailRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "E-mail enviado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Entrada inválida"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "EmailRequest": {
+        "type": "object",
+        "properties": {
+          "provider": {
+            "type": "string",
+            "enum": [
+              "GMAIL",
+              "OUTLOOK",
+              "YAHOO",
+              "HOTMAIL",
+              "ZOHO",
+              "AOL",
+              "MAIL.COM",
+              "PROTONMAIL",
+              "ICLOUD",
+              "FASTMAIL",
+              "YANDEX",
+              "GMX",
+              "SENDINBLUE",
+              "MANDRILL",
+              "SENDGRID",
+              "ELASTIC EMAIL",
+              "MAILGUN",
+              "AMAZON SES",
+              "SPARKPOST",
+              "RUNBOX",
+              "POSTEO",
+              "TUTANOTA"
+            ],
+            "description": "Provedor de e-mail para o qual o SMTP deve ser configurado."
+          },
+          "sender_mail": {
+            "type": "string",
+            "example": "astoulfo@hotmail.com",
+            "description": "Este campo representa o remetente, ao qual enviará o e-mail para o destinatário."
+          },
+          "sender_mail_key": {
+            "type": "string",
+            "example": "A#bcde.123",
+            "description": "Este campo representa a chave de acesso ou senha do e-mail do remetente."
+          },
+          "recipient_mail": {
+            "type": "string",
+            "example": "joseteste@hotmail.com",
+            "description": "Este campo representa o destinatário, ao qual receberá o e-mail do remetente."
+          },
+          "title": {
+            "type": "string",
+            "example": "E-mail de teste",
+            "description": "Este campo representa o titulo do e-mail que será encaminhado."
+          },
+          "msg": {
+            "type": "string",
+            "example": "<h1>E-mail de teste enviado com sucesso!</h1>",
+            "description": "Este campo representa o corpo do e-mail, em formato HTML"
+          }
+        }
+      },
+      "EmailResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "sender_mail": {
+                "type": "string"
+              },
+              "sender_mail_key": {
+                "type": "string"
+              },
+              "recipient_mail": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
